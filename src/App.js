@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import axios from "axios";
 
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import "./styles.scss";
 
 function App() {
+  const [color, setColor] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/color")
+      .then((res) => {
+        setColor(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [color]);
+
   return (
     <Router>
       <div className="App">
