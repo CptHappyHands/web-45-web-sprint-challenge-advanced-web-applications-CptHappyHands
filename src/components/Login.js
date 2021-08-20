@@ -14,7 +14,9 @@ const Login = () => {
         <h2>Build login form here</h2>
       </div>
 
-      <p id="error" className="error">{error}</p>
+      <p id="error" className="error">
+        {error}
+      </p>
     </div>
   );
 };
