@@ -11,10 +11,12 @@
     "axios": "^0.21.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "mutationobserver-shim": "^0.3.7",
+    "node": "^16.6.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "server.js": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

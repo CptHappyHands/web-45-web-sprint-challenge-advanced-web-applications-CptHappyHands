@@ -5,6 +5,8 @@ import axios from "axios";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import "./styles.scss";
+import PrivateRoute from "./components/PrivateRoute";
+import BubblePage from "./components/BubblePage";
 
 function App() {
   const [color, setColor] = useState([]);
@@ -13,6 +15,7 @@ function App() {
     axios
       .get("http://localhost:5000/api/color")
       .then((res) => {
+        console.log(res.data);
         setColor(res.data);
       })
       .catch((err) => {
@@ -45,6 +48,7 @@ function App() {
         </header>
 
         <Switch>
+          <PrivateRoute exact path="/bubbles" component={BubblePage} />
           <Route path="/login" component={Login} />
           <Route path="/" component={Login} />
           <Route path="/logout" component={Logout} />
