@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import "./styles.scss";
 
 function App() {
@@ -10,8 +11,30 @@ function App() {
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">logout</a>
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
+          <div>
+            <Link to="/logout">
+              <a data-testid="logoutButton" href="#">
+                logout
+              </a>
+            </Link>
+          </div>
+          <div>
+            {localStorage.getItem("token") && (
+              <div>
+                <Link to="/protected">YOU SHALL NOT PASS</Link>
+              </div>
+            )}
+          </div>
         </header>
+
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/" component={Login} />
+          <Route path="/logout" component={Logout} />
+        </Switch>
       </div>
     </Router>
   );
