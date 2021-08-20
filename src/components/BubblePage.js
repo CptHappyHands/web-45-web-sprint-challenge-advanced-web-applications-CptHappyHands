@@ -25,12 +25,14 @@ const BubblePage = () => {
   };
 
   const saveEdit = (editColor) => {
-    setColors(colors.filter((item) => item.editColor !== editColor));
+    // setColors(colors.filter((item) => item.editColor !== editColor));
     axiosWithAuth()
-      .put(`http://localhost:5000/api/colors/${editColor}`)
+      .put(`http://localhost:5000/api/colors/${editColor.id}`, editColor)
       .then((res) => {
         console.log(res);
-        setColors(res);
+        let index = colors.findIndex((color) => color.id === editColor.id);
+        colors[index] = editColor;
+        setColors([...colors]);
       })
       .catch((err) => {
         console.log(err);
@@ -39,13 +41,11 @@ const BubblePage = () => {
 
   const deleteColor = (colorToDelete) => {
     axiosWithAuth()
-      .delete(`http://localhost:5000/api/colors/${colorToDelete}`)
+      .delete(`http://localhost:5000/api/colors/${colorToDelete.id}`)
       // console.log(colorToDelete)
-      .then((color) => {
-        console.log(color);
-        setColors(
-          colors.filter((item) => item.colorToDelete !== colorToDelete)
-        );
+      .then(() => {
+        console.log(colorToDelete);
+        setColors(colors.filter((item) => item.id !== colorToDelete.id));
       })
       .catch((err) => {
         console.log(err);
