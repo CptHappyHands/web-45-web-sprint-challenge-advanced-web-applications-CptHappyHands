@@ -10,49 +10,47 @@ const BubblePage = () => {
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
 
-  // const { id } = useParams();
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/api/colors")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setColors(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  axiosWithAuth()
-    .get("http://localhost:5000/api/colors")
-    .then((res) => {
-      console.log(res.data);
-      setColors(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    }, []);
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:5000/api/colors/`)
-  //     .then((res) => {
-  //       localStorage.setItem("token", res.data.payload);
-  //       setColors(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetchColorService()
+      .then((res) => {
+        setColors(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const toggleEdit = (value) => {
     setEditing(value);
   };
 
-  console.log(colors);
-  const saveEdit = (editColor) => {};
+  const saveEdit = (editColor) => {
+    setColors(colors.filter((item) => item.editColor !== editColor));
+    axiosWithAuth()
+      .put(`http://localhost:5000/api/colors/${editColor}`)
+      .then((res) => {
+        console.log(res);
+        setColors(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const deleteColor = (colorToDelete) => {};
+  const deleteColor = (colorToDelete) => {
+    axiosWithAuth()
+      .delete(`http://localhost:5000/api/colors/${colorToDelete}`)
+      // console.log(colorToDelete)
+      .then((color) => {
+        console.log(color);
+        setColors(
+          colors.filter((item) => item.colorToDelete !== colorToDelete)
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      }, []);
+  };
 
   return (
     <div className="container">

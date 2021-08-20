@@ -13,15 +13,15 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/color")
+      .get("http://localhost:5000/api/colors")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setColor(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [color]);
+  }, []);
 
   return (
     <Router>
@@ -41,7 +41,7 @@ function App() {
           <div>
             {localStorage.getItem("token") && (
               <div>
-                <Link to="/protected">YOU SHALL NOT PASS</Link>
+                <Link to="/bubbles">YOU SHALL NOT PASS</Link>
               </div>
             )}
           </div>
